@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(movement);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-
+        ///djlfkmajsdlkfjalksdjflasjdfl
     }
     private void Autodive()
     {
