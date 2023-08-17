@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CarController : MonoBehaviour
 {
@@ -36,6 +37,11 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private float brakeForce = 3000f;
     private Rigidbody rb;
+    private int damaged = 0;
+    private float fuel = 100f;
+    private float capacity = 100f;
+
+    private int laps = 0;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -74,9 +80,24 @@ public class CarController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Car"))
         {
             rb.velocity = Vector3.zero;
+            damaged += 5;
+            if (damaged >= 100)
+            {
+                ResetSence();
+            }
         }
+
+        if (collision.gameObject.CompareTag("Lap"))
+        {
+            laps += 1;
+        }
+    }
+    public void ResetSence()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
